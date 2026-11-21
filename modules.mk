@@ -1,0 +1,12 @@
+# SPDX-License-Identifier: Apache-2.0
+KJ7_MODULES := $(KJ7_KERNEL_PATH)/modules
+KJ7_EARLY_MODULES := $(KJ7_MODULES)/vendor_ramdisk
+KJ7_LATE_MODULES := $(KJ7_MODULES)/vendor_dlkm
+
+BOARD_VENDOR_RAMDISK_KERNEL_MODULES := $(sort $(wildcard $(KJ7_EARLY_MODULES)/*.ko))
+BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD := $(strip $(shell cat $(KJ7_EARLY_MODULES)/modules.load))
+BOARD_VENDOR_RAMDISK_RECOVERY_KERNEL_MODULES_LOAD := $(strip $(shell cat $(KJ7_EARLY_MODULES)/modules.load.recovery))
+BOARD_DO_NOT_STRIP_VENDOR_RAMDISK_MODULES := true
+BOARD_VENDOR_KERNEL_MODULES := $(sort $(wildcard $(KJ7_LATE_MODULES)/*.ko))
+BOARD_VENDOR_KERNEL_MODULES_LOAD := $(strip $(shell cat $(KJ7_LATE_MODULES)/modules.load))
+BOARD_DO_NOT_STRIP_VENDOR_MODULES := true
